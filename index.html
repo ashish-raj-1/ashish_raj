@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive Easy - Vehicle Rental System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172554;
+        }
+
+        header {
+            width: 92%;
+            margin: 20px auto;
+            padding: 12px 25px;
+            background: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b00, #ff9f1c);
+            border-radius: 14px 5px 14px 5px;
+            font-size: 25px;
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.35);
+            transform: rotate(-3deg);
+        }
+
+        .logo-text {
+            line-height: 1;
+        }
+
+        .logo-title {
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .drive {
+            color: #172554;
+        }
+
+        .bolt {
+            color: #ff6b00;
+            font-size: 21px;
+            transform: rotate(8deg);
+            display: inline-block;
+        }
+
+        .easy {
+            color: #06b6d4;
+        }
+
+        .logo-line {
+            width: 100%;
+            height: 3px;
+            margin-top: 5px;
+            background: linear-gradient(90deg, #ff6b00, #06b6d4);
+            border-radius: 10px;
+        }
+
+        .logo-subtitle {
+            margin-top: 5px;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #64748b;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #172554;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+            background: #2563eb;
+        }
+
+        nav a.active {
+            color: white;
+            background: #2563eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        .hero {
+            width: 92%;
+            margin: 25px auto;
+            min-height: 500px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #172554, #4f46e5, #06b6d4);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 700px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.15);
+            transform: rotate(35deg);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 700px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.15);
+            transform: rotate(-35deg);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+            color: #e0f2fe;
+        }
+
+        .search-box {
+            margin-top: 35px;
+            background: white;
+            padding: 15px;
+            border-radius: 18px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box select,
+        .search-box input {
+            flex: 1;
+            min-width: 160px;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            color: #333;
+        }
+
+        .search-box button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            background: #ff6b00;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #e85d00;
+            transform: translateY(-2px);
+        }
+
+        .features {
+            width: 92%;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            margin-bottom: 8px;
+            color: #172554;
+        }
+
+        .feature p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .section {
+            width: 92%;
+            margin: 80px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            color: #172554;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #64748b;
+        }
+
+        .vehicles {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .vehicle-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-7px);
+        }
+
+        .vehicle-image {
+            height: 190px;
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        .vehicle-image::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 2px;
+            background: rgba(79, 70, 229, 0.25);
+            transform: rotate(35deg);
+            z-index: 3;
+        }
+
+        .vehicle-image::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 2px;
+            background: rgba(79, 70, 229, 0.25);
+            transform: rotate(-35deg);
+            z-index: 3;
+        }
+
+        .vehicle-icon {
+            font-size: 70px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .vehicle-info {
+            padding: 20px;
+        }
+
+        .vehicle-info h3 {
+            color: #172554;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #ff6b00;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .book-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #172554;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background: #ff6b00;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-box {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .about-box h3 {
+            font-size: 25px;
+            margin-bottom: 15px;
+            color: #172554;
+        }
+
+        .about-box p {
+            line-height: 1.7;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .about-list {
+            list-style: none;
+        }
+
+        .about-list li {
+            padding: 10px 0;
+            color: #475569;
+        }
+
+        .about-list li::before {
+            content: "✓";
+            color: #ff6b00;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .contact-info,
+        .contact-form {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .contact-info h3,
+        .contact-form h3 {
+            color: #172554;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: #475569;
+        }
+
+        .contact-item span {
+            font-size: 25px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .contact-form textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #ff6b00;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background: #e85d00;
+        }
+
+        footer {
+            margin-top: 70px;
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        footer h3 {
+            margin-bottom: 10px;
+            color: #06b6d4;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        @media (max-width: 1000px) {
+            .vehicles {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                min-height: 550px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box select,
+            .search-box input,
+            .search-box button {
+                width: 100%;
+            }
+
+            .features,
+            .vehicles {
+                grid-template-columns: 1fr;
+            }
+
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .logo-title {
+                font-size: 19px;
+            }
+
+            .logo-subtitle {
+                font-size: 7px;
+                letter-spacing: 1.5px;
+            }
+
+            .logo-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 21px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">🚗</div>
+            <div class="logo-text">
+                <div class="logo-title">
+                    <span class="drive">DRIVE</span>
+                    <span class="bolt">⚡</span>
+                    <span class="easy">EASY</span>
+                </div>
+                <div class="logo-line"></div>
+                <div class="logo-subtitle" style="margin-left: 20px;">VEHICLE RENTAL SYSTEM</div>
+            </div>
+        </div>
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#vehicles">Vehicles</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="tag">🚘 Reliable • Affordable • Comfortable</div>
+            <h1>FIND THE BEST VEHICLE FOR YOUR JOURNEY</h1>
+            <p>Rent your favorite car, SUV or bike with Drive Easy. Enjoy comfortable rides, affordable prices and easy
+                booking.</p>
+            <div class="search-box">
+                <select id="vehicleType">
+                    <option value="">Select Vehicle</option>
+                    <option value="Car">Car</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Bike">Bike</option>
+                </select>
+                <input type="text" id="location" placeholder="Pickup Location">
+                <input type="date" id="pickupDate">
+                <button onclick="searchVehicle()">Search Vehicle</button>
+            </div>
+        </div>
+    </section>
+    <section class="features">
+        <div class="feature">
+            <div class="feature-icon">🚘</div>
+            <h3>Wide Range</h3>
+            <p>Choose from cars, SUVs and bikes.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">💰</div>
+            <h3>Best Price</h3>
+            <p>Affordable rental prices for everyone.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📱</div>
+            <h3>Easy Booking</h3>
+            <p>Book your vehicle in just a few clicks.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🕐</div>
+            <h3>24/7 Support</h3>
+            <p>We are available whenever you need us.</p>
+        </div>
+    </section>
+    <section class="section" id="vehicles">
+        <div class="section-title">
+            <h2>Our Vehicles</h2>
+            <p>Choose the perfect vehicle for your journey</p>
+        </div>
+        <div class="vehicles">
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="images/download.jpg" alt="Maruti Swift">
+                </div>
+                <div class="vehicle-info">
+                    <h3>Maruti Swift</h3>
+                    <div class="price">₹1500 / Day</div>
+                    <div class="details">
+                        <span>🚘 Car</span>
+                        <span>👥 5 Seats</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+                    <button class="book-btn" onclick="bookVehicle('Maruti Swift')">Book Now</button>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="images/download (1).jpg" alt="Hyundai Creta">
+                </div>
+                <div class="vehicle-info">
+                    <h3>Hyundai Creta</h3>
+                    <div class="price">₹2500 / Day</div>
+                    <div class="details">
+                        <span>🚙 SUV</span>
+                        <span>👥 5 Seats</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+                    <button class="book-btn" onclick="bookVehicle('Hyundai Creta')">Book Now</button>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="images/download (2).jpg" alt="Royal Enfield">
+                </div>
+                <div class="vehicle-info">
+                    <h3>Royal Enfield</h3>
+                    <div class="price">₹800 / Day</div>
+                    <div class="details">
+                        <span>🏍️ Bike</span>
+                        <span>👥 2 Seats</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+                    <button class="book-btn" onclick="bookVehicle('Royal Enfield')">Book Now</button>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="images/download (3).jpg" alt="Honda City">
+                </div>
+                <div class="vehicle-info">
+                    <h3>Honda City</h3>
+                    <div class="price">₹1800 / Day</div>
+                    <div class="details">
+                        <span>🚘 Car</span>
+                        <span>👥 5 Seats</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+                    <button class="book-btn" onclick="bookVehicle('Honda City')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="about">
+        <div class="section-title">
+            <h2>About Us</h2>
+            <p>Your trusted partner for comfortable journeys</p>
+        </div>
+        <div class="about-container">
+            <div class="about-box">
+                <h3>Who We Are</h3>
+                <p>Drive Easy is a modern vehicle rental service designed to make your journey simple, comfortable and
+                    affordable.</p>
+                <p>Whether you need a car for a family trip, an SUV for a long journey or a bike for city travel, we
+                    have the right vehicle for you.</p>
+            </div>
+            <div class="about-box">
+                <h3>Why Choose Drive Easy?</h3>
+                <ul class="about-list">
+                    <li>Wide range of vehicles</li>
+                    <li>Affordable rental prices</li>
+                    <li>Quick and easy booking</li>
+                    <li>Well-maintained vehicles</li>
+                    <li>24/7 customer support</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Have a question? We would love to hear from you.</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <div>
+                        <strong>Address</strong>
+                        <p>Rajkot-Gujarat, India</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <div>
+                        <strong>Phone</strong>
+                        <p>+91 9153406273</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span>📧</span>
+                    <div>
+                        <strong>Email</strong>
+                        <p>ashishrajput2536@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span>🕐</span>
+                    <div>
+                        <strong>Working Hours</strong>
+                        <p>24/7 Available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <input type="text" id="name" placeholder="Your Name">
+                <input type="email" id="email" placeholder="Your Email">
+                <input type="text" id="subject" placeholder="Subject">
+                <textarea id="message" placeholder="Your Message"></textarea>
+                <button onclick="sendMessage()">Send Message</button>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <h3>DRIVE ⚡ EASY</h3>
+        <p>VEHICLE RENTAL SYSTEM</p>
+        <p>© 2026 Drive Easy. All Rights Reserved.</p>
+        <p>Ride Smart • Ride Safe • Ride Easy 🚗</p>
+    </footer>
+    <script>
+        function searchVehicle() {
+            let vehicle = document.getElementById("vehicleType").value;
+            let location = document.getElementById("location").value;
+            let date = document.getElementById("pickupDate").value;
+            if (vehicle === "" || location === "" || date === "") {
+                alert("Please select vehicle, pickup location and date.");
+                return;
+            }
+            alert("Vehicle: " + vehicle + "\nPickup Location: " + location + "\nPickup Date: " + date + "\n\nVehicle search completed!");
+        }
+        function bookVehicle(vehicleName) {
+            let result = confirm("Do you want to book " + vehicleName + "?");
+            if (result) {
+                alert("Booking request received for " + vehicleName + "!\n\nOur team will contact you soon.");
+            }
+        }
+        function sendMessage() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let subject = document.getElementById("subject").value;
+            let message = document.getElementById("message").value;
+            if (name === "" || email === "" || subject === "" || message === "") {
+                alert("Please fill all fields.");
+                return;
+            }
+            alert("Thank you, " + name + "!\n\nYour message has been sent successfully.");
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("subject").value = "";
+            document.getElementById("message").value = "";
+        }
+        const navLinks = document.querySelectorAll("nav a");
+        navLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.forEach(function (item) {
+                    item.classList.remove("active");
+                });
+                this.classList.add("active");
+            });
+        });
+    </script>
+</body>
+
+</html>
